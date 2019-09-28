@@ -11,19 +11,19 @@ db.once('open', function() {
   console.log('mongoose connected successfully');
 });
 
-var itemSchema = mongoose.Schema({
-  quantity: Number,
-  description: String
+var accountSchema = mongoose.Schema({
+  username: String,
+  badges: Number
 });
 
-var Item = mongoose.model('Item', itemSchema);
+var Account = mongoose.model('Account', accountSchema);
 
 var selectAll = function(callback) {
-  Item.find({}, function(err, items) {
+  Account.find({}, function(err, accts) {
     if(err) {
       callback(err, null);
     } else {
-      callback(null, items);
+      callback(null, accts);
     }
   });
 };
