@@ -5,7 +5,7 @@ var db = require('../database-mongo/index.js');
 var app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/../react-client/dist'));
+app.use(express.static('public'));
 
 app.get('/api/usernames', function (req, res) {
   db.selectAll(function(err, data) {
@@ -18,6 +18,7 @@ app.get('/api/usernames', function (req, res) {
 });
 
 app.post('/api/usernames', function (req, res) {
+
   db.addUsername(req.body, (err, result) => {
     if (err) {
       console.log('app.post error: ', err);
