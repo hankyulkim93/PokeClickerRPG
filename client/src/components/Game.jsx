@@ -64,7 +64,6 @@ class Game extends React.Component {
         PKMN: newPKMN
       })
     };
-    console.log(this.state);
   };
 
   levelUp(e) {
