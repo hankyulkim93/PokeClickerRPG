@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/mvp');
 
 var db = mongoose.connection;
 
@@ -28,4 +28,15 @@ var selectAll = function(callback) {
   });
 };
 
+var addUsername = function(data, callback) {
+  Account.create(data, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      callback(null, result)
+    }
+  });
+};
+
 module.exports.selectAll = selectAll;
+module.exports.addUsername = addUsername;

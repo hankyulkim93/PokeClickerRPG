@@ -8,28 +8,29 @@ class Login extends React.Component {
     super(props);
 
     this.state = {
-      username: ''
+      username: '',
+      badges: 0
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit() {
     console.log(this.state.username);
-    console.log('needs to move to the next page or sequence of actual game');
-    console.log('username needs to be stored in database');
-
     $.ajax({
-      type: 'POST',
-      url: '/usernames',
-      data: this.state.username,
-      dataType: JSON,
-      success: function() {
-        console.log('success');
+      type: "POST",
+      url: '/api/usernames',
+      data: {
+        username: this.state.username,
+        badges: this.state.badges
+      },
+      success: () => {
+        console.log('added!');
+      },
+      error: (err) => {
+        console.log(err);
       }
-    })
-
+    });
   }
 
   handleChange(e) {
@@ -42,16 +43,16 @@ class Login extends React.Component {
   render() {
     return (
       <Router>
-        <form onSubmit={this.handleSubmit}>
+        <form>
           <label>
             Username:
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
+            <input type="text" value={this.state.username} onChange={this.handleChange} />
           </label>
           <Link to="/game">
-            <button>Submit</button>
+            <button onClick={this.handleSubmit}>Submit</button>
           </Link>
           <Switch>
-            <Route path="/game" component={Game}></Route>
+            <Route path="/game" render={(props) => <Game {...props} username={this.state.username} />} />
           </Switch>
         </form>
       </Router>
