@@ -6,7 +6,7 @@ class Game extends React.Component {
     super(props);
     this.state = {
       counter: 0,
-      PKMN: null,
+      PKMN: [],
       level: 1,
       required: 10,
       auto: 0
@@ -58,7 +58,8 @@ class Game extends React.Component {
     let pokemon = ["Bulbasaur","Ivysaur","Venusaur","Charmander","Charmeleon","Charizard","Squirtle","Wartortle","Blastoise","Caterpie","Metapod","Butterfree","Weedle","Kakuna","Beedrill","Pidgey","Pidgeotto","Pidgeot","Rattata","Raticate","Spearow","Fearow","Ekans","Arbok","Pikachu","Raichu","Sandshrew","Sandslash","NidoranF","Nidorina","Nidoqueen","NidoranM","Nidorino","Nidoking","Clefairy","Clefable","Vulpix","Ninetales","Jigglypuff","Wigglytuff","Zubat","Golbat","Oddish","Gloom","Vileplume","Paras","Parasect","Venonat","Venomoth","Diglett","Dugtrio","Meowth","Persian","Psyduck","Golduck","Mankey","Primeape","Growlithe","Arcanine","Poliwag","Poliwhirl","Poliwrath","Abra","Kadabra","Alakazam","Machop","Machoke","Machamp","Bellsprout","Weepinbell","Victreebel","Tentacool","Tentacruel","Geodude","Graveler","Golem","Ponyta","Rapidash","Slowpoke","Slowbro","Magnemite","Magneton","Farfetch'd","Doduo","Dodrio","Seel","Dewgong","Grimer","Muk","Shellder","Cloyster","Gastly","Haunter","Gengar","Onix","Drowzee","Hypno","Krabby","Kingler","Voltorb","Electrode","Exeggcute","Exeggutor","Cubone","Marowak","Hitmonlee","Hitmonchan","Lickitung","Koffing","Weezing","Rhyhorn","Rhydon","Chansey","Tangela","Kangaskhan","Horsea","Seadra","Goldeen","Seaking","Staryu","Starmie","Mr.Mime","Scyther","Jynx","Electabuzz","Magmar","Pinsir","Tauros","Magikarp","Gyarados","Lapras","Ditto","Eevee","Vaporeon","Jolteon","Flareon","Porygon","Omanyte","Omastar","Kabuto","Kabutops","Aerodactyl","Snorlax","Articuno","Zapdos","Moltres","Dratini","Dragonair","Dragonite","Mewtwo","Mew"];
     if (this.state.counter >= 10) {
       let index = Math.floor(Math.random() * 152);
-      let newPKMN = pokemon[index]
+      let newPKMN = this.state.PKMN;
+      newPKMN.push(pokemon[index]);
       this.setState({
         counter: this.state.counter - 10,
         PKMN: newPKMN
@@ -93,7 +94,7 @@ class Game extends React.Component {
     }
 
 
-    if (this.state.PKMN === null) {
+    if (this.state.PKMN.length === 0) {
       return(<div>
         <h1>Begin your adventure {this.props.username}!</h1>
         <button onClick={this.click} style={buttonStyle}><img src="/images/pokeball.png" alt='pokeball' style={buttonImgStyle} /></button>
@@ -101,15 +102,16 @@ class Game extends React.Component {
         <div><button onClick={this.buyPKMN}>Buy Pokemon (10)</button></div>
         </div>
       );
-    } else if (this.state.PKMN !== null) {
+    } else if (this.state.PKMN.length > 0) {
       return(<div>
         <h1>Begin your adventure {this.props.username}!</h1>
         <button onClick={this.click} style={buttonStyle}><img src="/images/pokeball.png" alt='pokeball' style={buttonImgStyle} /></button>
         <div style={countStyle}>Pokéballs:{this.state.counter}</div>
+        <div><button onClick={this.buyPKMN}>Buy Pokemon (10)</button></div>
         <div><button onClick={this.buyAuto}>Buy Auto Ball Collector (20)</button></div>
         <div>
           <h4>Pokémon</h4>
-          <div>{this.state.PKMN}</div><span>Level: {this.state.level}</span>
+          <div><div>{this.state.PKMN[0]}</div><span>Level: {this.state.level}</span></div>
           <button onClick={this.levelUp}>Level Up ({this.state.required})</button>
         </div>
         <div>
