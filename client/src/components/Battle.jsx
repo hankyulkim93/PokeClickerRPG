@@ -20,6 +20,7 @@ class Battle extends React.Component {
       });
       this.props.battle(e);
       alert('congrats you beat brock');
+      //need button to disappear once beaten
     } else if (gamble < 4 && this.props.counter >= gymCost[0]) {
       this.props.battle(e);
       alert('sorry fam try again');
@@ -60,7 +61,7 @@ class Battle extends React.Component {
         <button onClick={this.misty}>Challenge Misty ({gymCost[1]})</button>
       </div>
       <div>
-        <button onClick={this.brock}>Challenge Lt.Surge ({gymCost[2]})</button>
+        <button onClick={this.brock}>Challenge Lt. Surge ({gymCost[2]})</button>
       </div>
       <div>
         <button onClick={this.brock}>Challenge Erika ({gymCost[3]})</button>
